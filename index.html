@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Calculadora</title>
+</head>
+<body>
+
+<div>
+	<input id="txtVisor" readonly><br>
+    <button class="botãosimples" onclick="fnLimpaNumero()" id="Operador">C</button>
+    
+    <button class="botãosimples" onclick="fnRaiz()" id="Operador">√</button>
+    <button class="botãosimples" onclick="fnOperadores(5)" id="Operador">^</button>
+    <button class="botãosimples" onclick="fnCoseno()" id="Operador">Cos</button>
+    <button class="botãosimples" onclick="fnTangente()" id="Operador">Tan</button>
+    <br>       
+
+    <button class="botãosimples" id="Número" onclick="fnProcessaNumero(this)">7</button>
+    <button class="botãosimples" id="Número" onclick="fnProcessaNumero(this)">8</button>
+    <button class="botãosimples" id="Número" onclick="fnProcessaNumero(this)">9</button>
+    <button class="botãosimples" id="Operador" onclick="fnOperadores(2)">-</button>
+    <button class="botãosimples" id="Operador" onclick="fnOperadores(1)">+</button><br>
+    
+    <button class="botãosimples" id="Número" onclick="fnProcessaNumero(this)">4</button>
+    <button class="botãosimples" id="Número" onclick="fnProcessaNumero(this)">5</button>
+    <button class="botãosimples" id="Número" onclick="fnProcessaNumero(this)">6</button>
+    <button class="botãosimples" id="Operador" onclick="fnOperadores(4)">/</button>
+    <button class="botãosimples" id="Operador" onclick="fnOperadores(3)">*</button>   
+    <br>
+    
+    <button class="botãosimples" id="Número" onclick="fnProcessaNumero(this)">1</button>
+    <button class="botãosimples" id="Número" onclick="fnProcessaNumero(this)">2</button>
+    <button class="botãosimples" id="Número" onclick="fnProcessaNumero(this)">3</button>
+   
+    <button class="botãosimples" onclick="fnQuadrado()" id="Operador">X²</button>
+    <button class="botãosimples" id="Operador" onclick="fnSinal()">+/-</button>
+    <br>
+    <button onclick="fnProcessaNumero(this)" id="Número" class="zero">0</button>
+    <button class="botãosimples" id="Operador" onclick="fnVirgula()">,</button>
+    <button onclick="fnCalcular()" class="igual" id="Operador">=</button>    	
+    <br>
+</div>
+
+</body>
+
+<script>
+
+    // declaração das variáveis globais
+    let num1, num2;
+    let operacao;
+    let resul;
+
+    function fnProcessaNumero(nNum)
+    {
+        document.all.txtVisor.value += (nNum.innerText);
+    }
+
+    function fnLimpaNumero() //Limpa o visor
+    {
+        document.all.txtVisor.value = "";
+        num1 = 0; 
+        num2 = 0; 
+        resul = 0;
+        // as três variáveis devem ser zeradas para não ocorrer nenhuma falha
+    }
+
+    function fnOperadores(oOperador)
+    {
+        num1 = parseFloat(document.all.txtVisor.value);
+        document.getElementById('txtVisor').value = "";
+        operacao = oOperador;
+    }
+
+    function fnCalcular() 
+    {
+        num2 = parseFloat(document.all.txtVisor.value);
+        document.getElementById('txtVisor').value = "";
+        
+        switch(operacao)
+        {
+            case 1:
+                    resul = num1 + num2;
+                break;
+
+            case 2:
+                    resul = num1 - num2;
+                break;
+
+            case 3:
+                    resul = num1 * num2;
+                break;
+
+            case 4:
+                    resul = num1 / num2;
+                break;
+
+            case 5:
+                resul = Math.pow(num1, num2);
+                break;
+        }
+
+        document.all.txtVisor.value = resul; // após entrar em um caso e efetuar uma operação, é exibido o resultado no visor
+    }
+ 
+    function fnSinal() // troca o sinal do número
+    {
+        document.all.txtVisor.value = document.all.txtVisor.value *(-1);
+    }
+
+    function fnVirgula()
+    {
+	    let result = document.getElementById('txtVisor').value;
+	    if (!result.includes('.')) 
+        {
+		    document.getElementById('txtVisor').value += '.';
+	    }
+    }
+
+    function fnRaiz()
+    {
+        var resultado = document.getElementById('txtVisor').value;
+        if(resultado)
+        {
+            document.getElementById('txtVisor').value = Math.sqrt(resultado);
+            resultado = Math.sqrt(resultado);
+        }
+    }
+
+    function fnCoseno()
+    {
+        var resultado = document.getElementById('txtVisor').value;
+        if(resultado)
+        {
+            document.getElementById('txtVisor').value = Math.cos(resultado);
+            resultado = Math.cos(resultado);
+        }
+    }
+
+    function fnTangente()
+    {
+        var resultado = document.getElementById('txtVisor').value;
+        if(resultado)
+        {
+            document.getElementById('txtVisor').value = Math.tan(resultado);
+            resultado = Math.tan(resultado);
+        }
+    }
+    
+    function fnQuadrado()
+    {
+        var resultado = document.getElementById('txtVisor').value;
+        if (resultado) 
+        {
+            document.getElementById("txtVisor").value = Math.pow(resultado, 2);
+            resultado = Math.pow(resultado, 2);
+        }
+    }
+
+</script>
+</html>
